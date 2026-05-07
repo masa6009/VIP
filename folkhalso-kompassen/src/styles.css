@@ -44,13 +44,14 @@ button {
   margin: 8px 0;
   /* margin: 8px 16px;
   padding: 16px 18px; */
-  padding: 16px;
+  padding: 12px;
   border: 0;
   border-radius: 0 8px 8px 0;
   text-align: left;
   background: #DCE7F6;
   color: #606060;
   cursor: pointer;
+  position: relative;
 }
 .nav:hover {
   background: #f3f3f4;
@@ -60,6 +61,16 @@ button {
   background: white;
   color: #003976;
   font-weight: 700;
+}
+.nav.active::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 8px;
+  height: 100%;
+  background: #003976;
+  border-radius: 0 8px 8px 0;
 }
 .main {
   flex: 1;
