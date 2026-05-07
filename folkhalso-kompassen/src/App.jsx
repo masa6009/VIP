@@ -157,6 +157,12 @@ function RiskChips({ selected, setSelected, single = false }) {
     </div>
   );
 }
+const navItems = [
+  { key: "start", label: "Startsida", icon: "dashboard" },
+  { key: "prognos", label: "Prognos", icon: "query_stats" },
+  { key: "karta", label: "Karta", icon: "map" },
+];
+
 function Sidebar({ page, setPage }) {
   return (
     <aside className="sidebar">
@@ -164,13 +170,14 @@ function Sidebar({ page, setPage }) {
         <h2>Folkhälsokompassen</h2>
         <p>För simulering av risk för kardiovaskulära sjukdomar</p>
       </div>
-      {["start", "prognos", "karta"].map((k) => (
+      {navItems.map((item) => (
         <button
-          className={page === k ? "nav active" : "nav"}
-          onClick={() => setPage(k)}
-          key={k}
+          className={page === item.key ? "nav active" : "nav"}
+          onClick={() => setPage(item.key)}
+          key={item.key}
         >
-          {k === "start" ? "Startsida" : k === "prognos" ? "Prognos" : "Karta"}
+          <span className="material-symbols-rounded navIcon">{item.icon}</span>
+          {item.label}
         </button>
       ))}
     </aside>

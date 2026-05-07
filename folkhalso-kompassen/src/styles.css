@@ -1,4 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;700&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0,0&display=swap");
+
 * {
   box-sizing: border-box;
 }
@@ -16,8 +17,8 @@ button {
   min-height: 100vh;
 }
 .sidebar {
-  width: 280px;
-  flex: 0 0 280px;
+  width: 300px;
+  flex: 0 0 300px;
   background: #DCE7F6;
   /* border-right: 1px solid #c2c6d3; */
 }
@@ -39,28 +40,35 @@ button {
   line-height: 1.35;
 }
 .nav {
-  display: block;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   width: 100%;
   margin: 8px 0;
-  /* margin: 8px 16px;
-  padding: 16px 18px; */
   padding: 12px;
   border: 0;
-  border-radius: 0 8px 8px 0;
+  border-radius: 8px;
   text-align: left;
   background: #DCE7F6;
   color: #606060;
   cursor: pointer;
   position: relative;
 }
+.navIcon {
+  font-family: "Material Symbols Rounded";
+  font-size: 20px;
+  line-height: 1;
+  margin-right: 8px;
+  color: currentColor;
+}
 .nav:hover {
   background: #f3f3f4;
   color: #003976;
 }
+
 .nav.active {
   background: white;
   color: #003976;
-  font-weight: 700;
 }
 .nav.active::after {
   content: "";
