@@ -402,6 +402,7 @@ function Prognos() {
 function Karta() {
   const [selected, setSelected] = useState(["Blodtryck"]);
   const [hovered, setHovered] = useState("Umeå");
+  const [sliderValue, setSliderValue] = useState(0);
   const factor = selected[0];
   const data = useMemo(
     () =>
@@ -414,12 +415,13 @@ function Karta() {
               6.4,
               (muniBase[m] || 3) +
                 (risks.indexOf(factor) - 4) * 0.12 +
-                Math.sin(i) * 0.25,
+                Math.sin(i) * 0.25 +
+                sliderValue * 0.3,
             ),
           ),
         }))
         .sort((a, b) => b.value - a.value),
-    [factor],
+    [factor, sliderValue],
   );
   const active = data.find((d) => d.name === hovered) || data[0];
   const fillFor = (n) => {
@@ -439,6 +441,15 @@ function Karta() {
         </div>
         <p>Välj en riskfaktor</p>
         <RiskChips selected={selected} setSelected={setSelected} single />
+        {selected.length > 0 && (
+          <div className="mapFilterSlider">
+            <SliderCard
+              risk={factor}
+              value={sliderValue}
+              onChange={(_, v) => setSliderValue(v)}
+            />
+          </div>
+        )}
       </section>
       <section className="mapPanel">
         <div className="mapLeft">
