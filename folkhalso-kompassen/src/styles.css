@@ -315,7 +315,18 @@ button {
   padding: 8px 11px;
   font-size: 13px;
   cursor: pointer;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
+
+.chipIcon {
+  font-size: 14px;
+  color: currentColor;
+  flex: 0 0 auto;
+}
+
 .chip.active {
   background: #dce7f6;
   border-color: #0050a0;
@@ -392,6 +403,26 @@ button {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 14px;
+}
+
+.sliderCardTitle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sliderCardTitle h3 {
+  margin: 0;
+}
+
+.sliderCardIcon {
+  font-size: 18px;
+  color: #003976;
+  flex: 0 0 auto;
+}
+
+.bmiIcon {
+  font-size: 22px;
 }
 
 .cardHead {

@@ -1,5 +1,17 @@
 import React, { useMemo, useState } from "react";
 import { FiChevronDown } from "react-icons/fi";
+import {
+  FaTint,
+  FaHeartbeat,
+  FaVial,
+  FaWeight,
+  FaSmile,
+  FaWineGlassAlt,
+  FaSmoking,
+  FaRunning,
+  FaUtensils,
+} from "react-icons/fa";
+import { MdAccessibilityNew } from "react-icons/md";
 
 const C = {
   bg: "#f9f9f9",
@@ -28,6 +40,19 @@ const risks = [
   "Fysisk aktivitet",
   "Matvanor",
 ];
+
+const riskIcons = {
+  Blodsocker: FaTint,
+  Blodtryck: FaHeartbeat,
+  Blodfetter: FaVial,
+  "BMI & midjemått": MdAccessibilityNew,
+  "Upplevd hälsa": FaSmile,
+  Alkohol: FaWineGlassAlt,
+  "Tobak/Nikotin": FaSmoking,
+  "Fysisk aktivitet": FaRunning,
+  Matvanor: FaUtensils,
+};
+
 const municipalities = [
   "Bjurholm",
   "Dorotea",
@@ -188,23 +213,32 @@ const impactStages = [
 function RiskChips({ selected, setSelected, single = false }) {
   return (
     <div className="chips">
-      {risks.map((r) => (
-        <button
-          key={r}
-          onClick={() =>
-            single
-              ? setSelected([r])
-              : setSelected(
-                  selected.includes(r)
-                    ? selected.filter((x) => x !== r)
-                    : [...selected, r],
-                )
-          }
-          className={selected.includes(r) ? "chip active" : "chip"}
-        >
-          {r}
-        </button>
-      ))}
+      {risks.map((r) => {
+        const Icon = riskIcons[r];
+
+        return (
+          <button
+            key={r}
+            onClick={() =>
+              single
+                ? setSelected([r])
+                : setSelected(
+                    selected.includes(r)
+                      ? selected.filter((x) => x !== r)
+                      : [...selected, r],
+                  )
+            }
+            className={selected.includes(r) ? "chip active" : "chip"}
+          >
+            {Icon && (
+              <Icon
+                className={`chipIcon ${r === "BMI & midjemått" ? "bmiIcon" : ""}`}
+              />
+            )}
+            <span>{r}</span>
+          </button>
+        );
+      })}
     </div>
   );
 }
@@ -377,6 +411,8 @@ function InfoButton({ text, label = "Information" }) {
 }
 
 function SliderCard({ risk, value, onChange }) {
+  const Icon = riskIcons[risk];
+
   const label =
     value === 0
       ? "Nuläge"
@@ -392,10 +428,21 @@ function SliderCard({ risk, value, onChange }) {
   return (
     <div className="card slider">
       <div className="cardHead">
-        <h3>{risk}</h3>
+        <div className="sliderCardTitle">
+          {Icon && (
+            <Icon
+              className={`sliderCardIcon ${
+                risk === "BMI & midjemått" ? "bmiIcon" : ""
+              }`}
+            />
+          )}
+          <h3>{risk}</h3>
+        </div>
+
         <InfoButton
-  label={`Information om ${risk}`}
-  text={`${risk} påverkar den simulerade riskprofilen. Dra reglaget åt vänster för försämring och åt höger för förbättring.`}/>
+          label={`Information om ${risk}`}
+          text={`${risk} påverkar den simulerade riskprofilen. Dra reglaget åt vänster för försämring och åt höger för förbättring.`}
+        />
       </div>
 
       <div className="sliderTrackWrap">
