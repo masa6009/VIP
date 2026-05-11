@@ -230,6 +230,41 @@ button {
   color: #003976;
   font-weight: 700;
 }
+.stageChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.stageChip {
+  border: 1px solid #c2c6d3;
+  background: white;
+  border-radius: 999px;
+  padding: 8px 11px;
+  font-size: 13px;
+  cursor: pointer;
+  color: #1a1c1c;
+}
+.stageChip:hover {
+  background: #f3f4f5;
+}
+.stageChip.active {
+  font-weight: 700;
+}
+.stageChip.active.good {
+  background: #dce7f6;
+  border-color: #0050a0;
+  color: #003976;
+}
+.stageChip.active.bad {
+  background: #fcded6;
+  border-color: #f05933;
+  color: #731700;
+}
+.stageChip.active.neutral {
+  background: #e8e8e8;
+  border-color: #727783;
+  color: #1a1c1c;
+}
 .sliders {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

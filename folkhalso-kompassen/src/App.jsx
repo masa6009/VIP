@@ -152,6 +152,14 @@ function Dropdown({ label, value, options, onChange, small = false }) {
     </div>
   );
 }
+const impactStages = [
+  { value: -2, label: "Påtaglig försämring", tone: "bad" },
+  { value: -1, label: "Mild försämring", tone: "bad" },
+  { value: 0, label: "Nuläge", tone: "neutral" },
+  { value: 1, label: "Mild förbättring", tone: "good" },
+  { value: 2, label: "Påtaglig förbättring", tone: "good" },
+];
+
 function RiskChips({ selected, setSelected, single = false }) {
   return (
     <div className="chips">
@@ -173,6 +181,46 @@ function RiskChips({ selected, setSelected, single = false }) {
         </button>
       ))}
     </div>
+  );
+}
+function ImpactStageChips({ value, onChange }) {
+  return (
+    <div className="stageChips">
+      {impactStages.map((stage) => {
+        const active = value === stage.value;
+        return (
+          <button
+            key={stage.value}
+            type="button"
+            onClick={() => onChange(stage.value)}
+            className={`stageChip${active ? ` active ${stage.tone}` : ""}`}
+          >
+            {stage.label}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+function MapFilter({ selected, setSelected, mapImpact, setMapImpact }) {
+  return (
+    <section className="card mapFilter">
+      <h3>Filter</h3>
+      <div className="grid grid-cols-12 gap-5">
+        <div className="col-span-12 md:col-span-4 space-y-4">
+          <Dropdown label="Ålder" />
+          <Dropdown label="Kön" />
+        </div>
+        <div className="col-span-12 md:col-span-8">
+          <p className="mb-3">Välj en riskfaktor</p>
+          <RiskChips selected={selected} setSelected={setSelected} single />
+          <div className="mt-5">
+            <p className="mb-3">Välj simuleringsnivå</p>
+            <ImpactStageChips value={mapImpact} onChange={setMapImpact} />
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 function FiltersPanel({
@@ -500,8 +548,12 @@ function Prognos() {
 function Karta() {
   const [selected, setSelected] = useState(["Blodtryck"]);
   const [hovered, setHovered] = useState("Umeå");
-  const [sliderValue, setSliderValue] = useState(0);
+  const [mapImpact, setMapImpact] = useState(0);
   const factor = selected[0];
+  const handleMapRiskChange = (nextSelected) => {
+    setSelected(nextSelected);
+    setMapImpact(0);
+  };
   const data = useMemo(
     () =>
       municipalities
@@ -514,12 +566,12 @@ function Karta() {
               (muniBase[m] || 3) +
                 (risks.indexOf(factor) - 4) * 0.12 +
                 Math.sin(i) * 0.25 +
-                sliderValue * 0.3,
+                mapImpact * 0.3,
             ),
           ),
         }))
         .sort((a, b) => b.value - a.value),
-    [factor, sliderValue],
+    [factor, mapImpact],
   );
   const active = data.find((d) => d.name === hovered) || data[0];
   const fillFor = (n) => {
@@ -531,24 +583,12 @@ function Karta() {
   };
   return (
     <main className="main">
-      <section className="card mapFilter">
-        <h3>Filter</h3>
-        <div>
-          <Dropdown label="Ålder" />
-          <Dropdown label="Kön" />
-        </div>
-        <p>Välj en riskfaktor</p>
-        <RiskChips selected={selected} setSelected={setSelected} single />
-        {selected.length > 0 && (
-          <div className="mapFilterSlider">
-            <SliderCard
-              risk={factor}
-              value={sliderValue}
-              onChange={(_, v) => setSliderValue(v)}
-            />
-          </div>
-        )}
-      </section>
+      <MapFilter
+        selected={selected}
+        setSelected={handleMapRiskChange}
+        mapImpact={mapImpact}
+        setMapImpact={setMapImpact}
+      />
       <section className="mapPanel">
         <div className="mapLeft">
           <div className="top">
