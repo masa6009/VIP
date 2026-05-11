@@ -296,6 +296,30 @@ button {
   width: 100%;
   height: 360px;
 }
+.legend {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 10px;
+}
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #1a1c1c;
+}
+.marker {
+  width: 16px;
+  height: 2px;
+}
+.marker.solid {
+  background-color: inherit;
+}
+.marker.dashed {
+  border-top: 2px dashed;
+  background-color: transparent;
+}
 .split {
   display: flex;
   justify-content: space-between;

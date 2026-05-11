@@ -282,11 +282,13 @@ function SliderCard({ risk, value, onChange }) {
     </div>
   );
 }
-function Spider({ selected, values }) {
+function Spider({ selected, values, municipality1, municipality2 }) {
   const size = 360,
     c = 180,
     r = 125,
     axes = selected.length ? selected : risks;
+  const municipalityAdjustment1 = (muniBase[municipality1] || 3) * 3;
+  const municipalityAdjustment2 = (muniBase[municipality2] || 3) * 3;
   const poly = (off = 0) =>
     axes
       .map((a, i) => {
@@ -325,14 +327,14 @@ function Spider({ selected, values }) {
           );
         })}
         <polygon
-          points={poly(0)}
+          points={poly(municipalityAdjustment1)}
           fill={C.lightBlue}
           stroke={C.blue}
           strokeWidth="2"
           opacity=".75"
         />
         <polygon
-          points={poly(-7)}
+          points={poly(municipalityAdjustment2)}
           fill={C.lightOrange}
           stroke={C.orange}
           strokeDasharray="5 4"
@@ -340,19 +342,31 @@ function Spider({ selected, values }) {
           opacity=".55"
         />
       </svg>
+      <div className="legend">
+        <div className="legendItem">
+          <div className="marker solid" style={{ backgroundColor: C.blue }}></div>
+          {municipality1}
+        </div>
+        <div className="legendItem">
+          <div className="marker dashed" style={{ borderColor: C.orange }}></div>
+          {municipality2}
+        </div>
+      </div>
     </div>
   );
 }
-function Lives({ selected, values, year, setYear }) {
+function Lives({ selected, values, year, setYear, municipality1, municipality2 }) {
   const yrs = [2026, 2030, 2035, 2040, 2045, 2050, 2055, 2060];
   const impact = selected.reduce(
     (s, r) => s + Math.max(0, values[r]) * 12 - Math.min(0, values[r]) * 5,
     0,
   );
+  const base1 = muniBase[municipality1] || 3;
+  const base2 = muniBase[municipality2] || 3;
   const pts = yrs.map((y, i) => ({
     y,
-    a: Math.round(i * 20 + (impact * i) / 3),
-    b: Math.round(i * 12 + (impact * i) / 5),
+    a: Math.round(i * 20 + (impact * i) / 3 + base1 * 5),
+    b: Math.round(i * 12 + (impact * i) / 5 + base2 * 3),
   }));
   const max = Math.max(120, ...pts.map((p) => p.a));
   const x = (i) => 38 + i * 70,
@@ -400,6 +414,16 @@ function Lives({ selected, values, year, setYear }) {
           strokeWidth="2"
         />
       </svg>
+      <div className="legend">
+        <div className="legendItem">
+          <div className="marker solid" style={{ backgroundColor: C.blue }}></div>
+          {municipality1}
+        </div>
+        <div className="legendItem">
+          <div className="marker dashed" style={{ borderColor: C.orange }}></div>
+          {municipality2}
+        </div>
+      </div>
     </div>
   );
 }
@@ -424,8 +448,8 @@ function Prognos() {
   );
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
-  const [municipality1, setMunicipality1] = useState("");
-  const [municipality2, setMunicipality2] = useState("");
+  const [municipality1, setMunicipality1] = useState("Umeå");
+  const [municipality2, setMunicipality2] = useState("Skellefteå");
   const [year, setYear] = useState(2050);
   const update = (r, v) => setValues({ ...values, [r]: v });
   return (
@@ -468,12 +492,14 @@ function Prognos() {
         </div>
       </section>
       <section className="bottom">
-        <Spider selected={selected} values={values} />
+        <Spider selected={selected} values={values} municipality1={municipality1} municipality2={municipality2} />
         <Lives
           selected={selected}
           values={values}
           year={year}
           setYear={setYear}
+          municipality1={municipality1}
+          municipality2={municipality2}
         />
       </section>
     </main>
