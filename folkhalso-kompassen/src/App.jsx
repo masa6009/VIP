@@ -133,7 +133,7 @@ function Dropdown({ label, value, options, onChange, small = false }) {
     return (
       <button className={small ? "dropdown small" : "dropdown"}>
         {label}
-        <span>⌄</span>
+        <span></span>
       </button>
     );
   }
@@ -307,7 +307,17 @@ function SliderCard({ risk, value, onChange }) {
     <div className="card slider">
       <div className="cardHead">
         <h3>{risk}</h3>
-        <span className="info">i</span>
+        <button
+            type="button"
+            className="infoButton"
+            aria-label={`Information om ${risk}`}
+          >
+            i
+            <span className="infoTooltip">
+              {risk} påverkar den simulerade riskprofilen. Dra reglaget åt vänster för försämring
+              och åt höger för förbättring.
+            </span>
+          </button>
       </div>
       <div
         className={`bubble ${value < 0 ? "bad" : value > 0 ? "good" : ""}`}
