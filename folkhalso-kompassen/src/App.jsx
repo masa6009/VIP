@@ -233,7 +233,13 @@ function MapFilter({ selected, setSelected, mapImpact, setMapImpact }) {
 
   return (
     <section className="card mapFilter">
-      <h3>Filter</h3>
+      <div className="headingInfo">
+        <h3>Filter</h3>
+        <InfoButton
+          label="Information om kartfilter"
+          text="Här väljer du ålder, kön, riskfaktor och simuleringsnivå för kartvyn. Valen påverkar färger och värden i kartan."
+        />
+      </div>
 
       <div className="mapFilterLayout">
         <div className="mapFilterDropdowns">
@@ -283,7 +289,13 @@ function FiltersPanel({
 
   return (
     <div className="card filter">
-      <h3>Filter</h3>
+      <div className="cardHead">
+        <h3>Filter</h3>
+        <InfoButton
+          label="Information om filter"
+          text="Här väljer du målgrupp och kommuner som ska jämföras. Riskfaktorerna styr vilka reglage och diagram som visas."
+        />
+      </div>
       <div className="ddgrid">
         <Dropdown
           label="Ålder"
@@ -341,15 +353,25 @@ function Sidebar({ page, setPage }) {
     </aside>
   );
 }
+
+function InfoButton({ text, label = "Information" }) {
+  return (
+    <button type="button" className="infoButton" aria-label={label}>
+      i
+      <span className="infoTooltip">{text}</span>
+    </button>
+  );
+}
+
 function SliderCard({ risk, value, onChange }) {
   const label =
     value === 0
-      ? "nuläge"
+      ? "Nuläge"
       : value === -1
-        ? "mild"
+        ? "Mild"
         : value === 1
-          ? "mild"
-          : "påtaglig";
+          ? "Mild"
+          : "Påtaglig";
 
   const bubbleClass =
     value < 0 ? "bubble bad" : value > 0 ? "bubble good" : "bubble";
@@ -358,17 +380,9 @@ function SliderCard({ risk, value, onChange }) {
     <div className="card slider">
       <div className="cardHead">
         <h3>{risk}</h3>
-        <button
-          type="button"
-          className="infoButton"
-          aria-label={`Information om ${risk}`}
-        >
-          i
-          <span className="infoTooltip">
-            {risk} påverkar den simulerade riskprofilen. Dra reglaget åt
-            vänster för försämring och åt höger för förbättring.
-          </span>
-        </button>
+        <InfoButton
+  label={`Information om ${risk}`}
+  text={`${risk} påverkar den simulerade riskprofilen. Dra reglaget åt vänster för försämring och åt höger för förbättring.`}/>
       </div>
 
       <div className="sliderTrackWrap">
@@ -389,8 +403,8 @@ function SliderCard({ risk, value, onChange }) {
         />
 
         <div className="rangeLabels">
-          <span>försämring</span>
-          <span>förbättring</span>
+          <span>Försämring</span>
+          <span>Förbättring</span>
         </div>
       </div>
     </div>
@@ -413,7 +427,13 @@ function Spider({ selected, values, municipality1, municipality2 }) {
       .join(" ");
   return (
     <div className="card">
-      <h3>Riskprofil</h3>
+        <div className="headingInfo">
+          <h3>Riskprofil</h3>
+          <InfoButton
+            label="Information om riskprofil"
+            text="Riskprofilen visar de valda riskfaktorerna i ett radardiagram."
+          />
+        </div>
       <svg viewBox="0 0 360 360" className="chartSvg">
         {[0.25, 0.5, 0.75, 1].map((x) => (
           <circle key={x} cx={c} cy={c} r={r * x} fill="none" stroke={C.line} />
@@ -502,7 +522,13 @@ function Lives({
   return (
     <div className="card">
       <div className="split">
-        <h3>Räddade liv</h3>
+        <div className="titleWithInfo">
+          <h3>Prognos</h3>
+          <InfoButton
+            label="Information om räddade liv"
+            text="Diagrammet visar en prognos över hur många liv som kan påverkas över tid baserat på valda riskfaktorer och simulerade förändringar."
+          />
+        </div>
         <Dropdown
           label="År"
           value={String(year)}
@@ -683,7 +709,13 @@ function Karta() {
         <div className="mapLeft">
           <div className="top">
             <div>
+                <div className="titleWithInfo">
               <h1>Västerbotten – {factor}</h1>
+              <InfoButton
+                label="Information om kartan"
+                text="Kartan visar Västerbottens kommuner och färglägger dem efter det simulerade värdet för vald riskfaktor. Hovra eller klicka på en kommun för att se detaljer."
+              />
+            </div>
               <p>Hovra över kartan eller staplarna för att jämföra kommuner.</p>
             </div>
             <div className="stat">
@@ -753,7 +785,13 @@ function Karta() {
           </div>
         </div>
         <div className="bars">
-          <h2>Kommun</h2>
+          <div className="headingInfo">
+            <h2>Kommun</h2>
+            <InfoButton
+              label="Information om kommunlistan"
+              text="Listan rangordnar kommunerna efter aktuellt simulerat värde. Du kan hovra eller klicka på en kommun för att markera den i kartan."
+            />
+          </div>
           {data.map((d) => (
             <button
               key={d.name}

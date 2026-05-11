@@ -120,6 +120,7 @@ button {
   border-radius: 18px;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04);
 }
+
 .panel {
   max-width: 1320px;
   margin: auto;
@@ -165,6 +166,29 @@ button {
   margin: 0 0 14px;
   font-size: 18px;
 }
+
+.headingInfo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  margin-bottom: 16px;
+}
+
+.headingInfo h1,
+.headingInfo h2,
+.headingInfo h3 {
+  margin: 0;
+}
+
+.mapTitleBlock .headingInfo {
+  margin-bottom: 6px;
+}
+
+.mapTitleBlock p {
+  margin: 0;
+}
+
 .ddgrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -345,6 +369,19 @@ button {
   align-items: flex-start;
   gap: 12px;
 }
+
+.titleWithInfo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.titleWithInfo h1,
+.titleWithInfo h2,
+.titleWithInfo h3 {
+  margin: 0;
+}
+
 .infoButton {
   position: relative;
   display: inline-grid;
@@ -359,6 +396,7 @@ button {
   color: #727783;
   cursor: pointer;
   flex: 0 0 auto;
+  z-index: 30;
 }
 
 .infoButton:hover,
@@ -476,11 +514,16 @@ button {
   margin-top: 4px;
 }
 .bottom {
+  width: 100%;
   max-width: 1320px;
   margin: 22px auto 0;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 22px;
+}
+.bottom > .card {
+  width: 100%;
+  min-width: 0;
 }
 .chartSvg {
   width: 100%;
