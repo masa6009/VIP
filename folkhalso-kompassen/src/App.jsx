@@ -44,6 +44,8 @@ const municipalities = [
   "Vännäs",
   "Åsele",
 ];
+const ageOptions = ["40", "50", "60"];
+const genderOptions = ["Man", "Kvinna"];
 const base = Object.fromEntries(risks.map((r, i) => [r, 52 + ((i * 4) % 28)]));
 const muniBase = {
   Bjurholm: 6,
@@ -126,12 +128,28 @@ const paths = [
   },
 ];
 
-function Dropdown({ label }) {
+function Dropdown({ label, value, options, onChange, small = false }) {
+  if (!options) {
+    return (
+      <button className={small ? "dropdown small" : "dropdown"}>
+        {label}
+        <span>⌄</span>
+      </button>
+    );
+  }
   return (
-    <button className="dropdown">
-      {label}
-      <span>⌄</span>
-    </button>
+    <div className={small ? "dropdown small" : "dropdown"}>
+      <select value={value} onChange={(e) => onChange(e.target.value)}>
+        <option value="" disabled>
+          {label}
+        </option>
+        {options.map((option) => (
+          <option key={option} value={option}>
+            {option}
+          </option>
+        ))}
+      </select>
+    </div>
   );
 }
 function RiskChips({ selected, setSelected, single = false }) {
@@ -154,6 +172,57 @@ function RiskChips({ selected, setSelected, single = false }) {
           {r}
         </button>
       ))}
+    </div>
+  );
+}
+function FiltersPanel({
+  age,
+  setAge,
+  gender,
+  setGender,
+  municipality1,
+  setMunicipality1,
+  municipality2,
+  setMunicipality2,
+  selected,
+  setSelected,
+}) {
+  const municipality2Options =
+    municipality1 && municipality1 !== ""
+      ? municipalities.filter((m) => m !== municipality1)
+      : municipalities;
+
+  return (
+    <div className="card filter">
+      <h3>Filter</h3>
+      <div className="ddgrid">
+        <Dropdown
+          label="Ålder"
+          value={age}
+          options={ageOptions}
+          onChange={setAge}
+        />
+        <Dropdown
+          label="Kön"
+          value={gender}
+          options={genderOptions}
+          onChange={setGender}
+        />
+        <Dropdown
+          label="Kommun 1"
+          value={municipality1}
+          options={municipalities}
+          onChange={setMunicipality1}
+        />
+        <Dropdown
+          label="Kommun 2"
+          value={municipality2}
+          options={municipality2Options}
+          onChange={setMunicipality2}
+        />
+      </div>
+      <p>Välj riskfaktorer att simulera</p>
+      <RiskChips selected={selected} setSelected={setSelected} />
     </div>
   );
 }
@@ -293,7 +362,13 @@ function Lives({ selected, values, year, setYear }) {
     <div className="card">
       <div className="split">
         <h3>Räddade liv</h3>
-        <Dropdown label={year} />
+        <Dropdown
+          label="År"
+          value={String(year)}
+          options={yrs.map(String)}
+          onChange={(value) => setYear(Number(value))}
+          small
+        />
       </div>
       <input
         className="year"
@@ -347,6 +422,10 @@ function Prognos() {
   const [values, setValues] = useState(
     Object.fromEntries(risks.map((r) => [r, 0])),
   );
+  const [age, setAge] = useState("");
+  const [gender, setGender] = useState("");
+  const [municipality1, setMunicipality1] = useState("");
+  const [municipality2, setMunicipality2] = useState("");
   const [year, setYear] = useState(2050);
   const update = (r, v) => setValues({ ...values, [r]: v });
   return (
@@ -364,17 +443,18 @@ function Prognos() {
           </button>
         </div>
         <div className="simGrid">
-          <div className="card filter">
-            <h3>Filter</h3>
-            <div className="ddgrid">
-              <Dropdown label="Ålder" />
-              <Dropdown label="Kön" />
-              <Dropdown label="Kommun 1" />
-              <Dropdown label="Kommun 2" />
-            </div>
-            <p>Välj riskfaktorer att simulera</p>
-            <RiskChips selected={selected} setSelected={setSelected} />
-          </div>
+          <FiltersPanel
+            age={age}
+            setAge={setAge}
+            gender={gender}
+            setGender={setGender}
+            municipality1={municipality1}
+            setMunicipality1={setMunicipality1}
+            municipality2={municipality2}
+            setMunicipality2={setMunicipality2}
+            selected={selected}
+            setSelected={setSelected}
+          />
           <div className="sliders">
             {selected.map((r) => (
               <SliderCard
