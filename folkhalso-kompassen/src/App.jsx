@@ -384,14 +384,6 @@ function Lives({ selected, values, year, setYear, municipality1, municipality2 }
           small
         />
       </div>
-      <input
-        className="year"
-        type="range"
-        min="2026"
-        max="2060"
-        value={year}
-        onChange={(e) => setYear(Number(e.target.value))}
-      />
       <svg viewBox="0 0 560 330" className="chartSvg">
         <line x1="38" y1="300" x2="530" y2="300" stroke={C.muted} />
         <line x1="38" y1="300" x2="38" y2="20" stroke={C.muted} />
@@ -448,8 +440,8 @@ function Prognos() {
   );
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
-  const [municipality1, setMunicipality1] = useState("Umeå");
-  const [municipality2, setMunicipality2] = useState("Skellefteå");
+  const [municipality1, setMunicipality1] = useState("");
+  const [municipality2, setMunicipality2] = useState("");
   const [year, setYear] = useState(2050);
   const update = (r, v) => setValues({ ...values, [r]: v });
   return (

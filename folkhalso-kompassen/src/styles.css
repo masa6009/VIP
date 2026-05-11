@@ -175,7 +175,7 @@ button {
   display: inline-flex;
   align-items: center;
   width: 100%;
-  min-width: 120px;
+  max-width: 250px;
   border: 1px solid #c2c6d3;
   background: white;
   border-radius: 10px;
