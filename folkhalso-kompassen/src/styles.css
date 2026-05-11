@@ -172,13 +172,11 @@ button {
 }
 .dropdown {
   position: relative;
-  width: 100%;
-  max-width: 250px;
+  max-width: 100%;
 }
 
 .dropdown.small {
-  min-width: 100px;
-  max-width: 120px;
+  max-width: 100px;
 }
 
 .dropdownButton {
@@ -509,14 +507,13 @@ button {
 
 .mapFilterLayout {
   display: grid;
-  grid-template-columns: 260px 1fr;
-  gap: 24px;
+  grid-template-columns: 1fr;
+  gap: 10px;
   align-items: start;
 }
 
 .mapFilterDropdowns {
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
   gap: 10px;
 }
 
@@ -562,7 +559,6 @@ button {
   border-radius: 16px;
   padding: 12px 16px;
   text-align: right;
-  min-width: 120px;
 }
 .stat b {
   display: block;
