@@ -392,18 +392,31 @@ function Spider({ selected, values, municipality1, municipality2 }) {
       </svg>
       <div className="legend">
         <div className="legendItem">
-          <div className="marker solid" style={{ backgroundColor: C.blue }}></div>
+          <div
+            className="marker solid"
+            style={{ backgroundColor: C.blue }}
+          ></div>
           {municipality1}
         </div>
         <div className="legendItem">
-          <div className="marker dashed" style={{ borderColor: C.orange }}></div>
+          <div
+            className="marker dashed"
+            style={{ borderColor: C.orange }}
+          ></div>
           {municipality2}
         </div>
       </div>
     </div>
   );
 }
-function Lives({ selected, values, year, setYear, municipality1, municipality2 }) {
+function Lives({
+  selected,
+  values,
+  year,
+  setYear,
+  municipality1,
+  municipality2,
+}) {
   const yrs = [2026, 2030, 2035, 2040, 2045, 2050, 2055, 2060];
   const impact = selected.reduce(
     (s, r) => s + Math.max(0, values[r]) * 12 - Math.min(0, values[r]) * 5,
@@ -456,11 +469,17 @@ function Lives({ selected, values, year, setYear, municipality1, municipality2 }
       </svg>
       <div className="legend">
         <div className="legendItem">
-          <div className="marker solid" style={{ backgroundColor: C.blue }}></div>
+          <div
+            className="marker solid"
+            style={{ backgroundColor: C.blue }}
+          ></div>
           {municipality1}
         </div>
         <div className="legendItem">
-          <div className="marker dashed" style={{ borderColor: C.orange }}></div>
+          <div
+            className="marker dashed"
+            style={{ borderColor: C.orange }}
+          ></div>
           {municipality2}
         </div>
       </div>
@@ -532,7 +551,12 @@ function Prognos() {
         </div>
       </section>
       <section className="bottom">
-        <Spider selected={selected} values={values} municipality1={municipality1} municipality2={municipality2} />
+        <Spider
+          selected={selected}
+          values={values}
+          municipality1={municipality1}
+          municipality2={municipality2}
+        />
         <Lives
           selected={selected}
           values={values}
