@@ -322,8 +322,21 @@ function FiltersPanel({
           onChange={setMunicipality2}
         />
       </div>
-      <p>Välj riskfaktorer att simulera</p>
-      <RiskChips selected={selected} setSelected={setSelected} />
+      <div className="riskFilterHeader">
+  <p>Välj riskfaktorer att simulera</p>
+
+  <button
+    type="button"
+    className="selectAllButton"
+    onClick={() =>
+      selected.length === risks.length ? setSelected([]) : setSelected(risks)
+    }
+  >
+    {selected.length === risks.length ? "Avmarkera alla" : "Välj alla"}
+  </button>
+</div>
+
+<RiskChips selected={selected} setSelected={setSelected} />
     </div>
   );
 }
