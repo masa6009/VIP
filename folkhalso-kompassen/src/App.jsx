@@ -343,40 +343,55 @@ function Sidebar({ page, setPage }) {
 }
 function SliderCard({ risk, value, onChange }) {
   const label =
-    value === 0 ? "nuläge" : Math.abs(value) === 1 ? "mild" : "påtaglig";
+    value === 0
+      ? "nuläge"
+      : value === -1
+        ? "mild"
+        : value === 1
+          ? "mild"
+          : "påtaglig";
+
+  const bubbleClass =
+    value < 0 ? "bubble bad" : value > 0 ? "bubble good" : "bubble";
+
   return (
     <div className="card slider">
       <div className="cardHead">
         <h3>{risk}</h3>
         <button
-            type="button"
-            className="infoButton"
-            aria-label={`Information om ${risk}`}
-          >
-            i
-            <span className="infoTooltip">
-              {risk} påverkar den simulerade riskprofilen. Dra reglaget åt vänster för försämring
-              och åt höger för förbättring.
-            </span>
-          </button>
+          type="button"
+          className="infoButton"
+          aria-label={`Information om ${risk}`}
+        >
+          i
+          <span className="infoTooltip">
+            {risk} påverkar den simulerade riskprofilen. Dra reglaget åt
+            vänster för försämring och åt höger för förbättring.
+          </span>
+        </button>
       </div>
-      <div
-        className={`bubble ${value < 0 ? "bad" : value > 0 ? "good" : ""}`}
-        style={{ left: `calc(${(value + 2) * 25}% - 30px)` }}
-      >
-        {label}
-      </div>
-      <input
-        type="range"
-        min="-2"
-        max="2"
-        step="1"
-        value={value}
-        onChange={(e) => onChange(risk, Number(e.target.value))}
-      />
-      <div className="rangeLabels">
-        <span>försämring</span>
-        <span>förbättring</span>
+
+      <div className="sliderTrackWrap">
+        <div
+          className={`${bubbleClass} bubbleValue${value}`}
+          style={{ left: `${((value + 2) / 4) * 100}%` }}
+        >
+          {label}
+        </div>
+
+        <input
+          type="range"
+          min="-2"
+          max="2"
+          step="1"
+          value={value}
+          onChange={(e) => onChange(risk, Number(e.target.value))}
+        />
+
+        <div className="rangeLabels">
+          <span>försämring</span>
+          <span>förbättring</span>
+        </div>
       </div>
     </div>
   );
