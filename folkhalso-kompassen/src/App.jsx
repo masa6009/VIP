@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from "react";
+import { FiChevronDown } from "react-icons/fi";
 
 const C = {
   bg: "#f9f9f9",
@@ -129,26 +130,50 @@ const paths = [
 ];
 
 function Dropdown({ label, value, options, onChange, small = false }) {
+  const [open, setOpen] = useState(false);
+  const selectedLabel = value || label;
+
   if (!options) {
     return (
-      <button className={small ? "dropdown small" : "dropdown"}>
-        {label}
-        <span></span>
+      <button type="button" className={small ? "dropdownButton small" : "dropdownButton"}>
+        <span>{label}</span>
+        <FiChevronDown className="dropdownArrow" />
       </button>
     );
   }
+
   return (
     <div className={small ? "dropdown small" : "dropdown"}>
-      <select value={value} onChange={(e) => onChange(e.target.value)}>
-        <option value="" disabled>
-          {label}
-        </option>
-        {options.map((option) => (
-          <option key={option} value={option}>
-            {option}
-          </option>
-        ))}
-      </select>
+      <button
+        type="button"
+        className="dropdownButton"
+        onClick={() => setOpen((prev) => !prev)}
+      >
+        <span className={value ? "dropdownValue" : "dropdownPlaceholder"}>
+          {selectedLabel}
+        </span>
+        <FiChevronDown className={open ? "dropdownArrow open" : "dropdownArrow"} />
+      </button>
+
+      {open && (
+        <div className="dropdownMenu">
+          {options.map((option) => (
+            <button
+              key={option}
+              type="button"
+              className={
+                value === option ? "dropdownOption active" : "dropdownOption"
+              }
+              onClick={() => {
+                onChange(option);
+                setOpen(false);
+              }}
+            >
+              {option}
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
@@ -203,19 +228,35 @@ function ImpactStageChips({ value, onChange }) {
   );
 }
 function MapFilter({ selected, setSelected, mapImpact, setMapImpact }) {
+  const [mapAge, setMapAge] = useState("");
+  const [mapGender, setMapGender] = useState("");
+
   return (
     <section className="card mapFilter">
       <h3>Filter</h3>
-      <div className="grid grid-cols-12 gap-5">
-        <div className="col-span-12 md:col-span-4 space-y-4">
-          <Dropdown label="Ålder" />
-          <Dropdown label="Kön" />
+
+      <div className="mapFilterLayout">
+        <div className="mapFilterDropdowns">
+          <Dropdown
+            label="Ålder"
+            value={mapAge}
+            options={ageOptions}
+            onChange={setMapAge}
+          />
+          <Dropdown
+            label="Kön"
+            value={mapGender}
+            options={genderOptions}
+            onChange={setMapGender}
+          />
         </div>
-        <div className="col-span-12 md:col-span-8">
-          <p className="mb-3">Välj en riskfaktor</p>
+
+        <div className="mapFilterControls">
+          <p>Välj en riskfaktor</p>
           <RiskChips selected={selected} setSelected={setSelected} single />
-          <div className="mt-5">
-            <p className="mb-3">Välj simuleringsnivå</p>
+
+          <div className="mapStageSection">
+            <p>Välj simuleringsnivå</p>
             <ImpactStageChips value={mapImpact} onChange={setMapImpact} />
           </div>
         </div>
