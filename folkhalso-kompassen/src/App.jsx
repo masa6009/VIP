@@ -213,32 +213,23 @@ const impactStages = [
 function RiskChips({ selected, setSelected, single = false }) {
   return (
     <div className="chips">
-      {risks.map((r) => {
-        const Icon = riskIcons[r];
-
-        return (
-          <button
-            key={r}
-            onClick={() =>
-              single
-                ? setSelected([r])
-                : setSelected(
-                    selected.includes(r)
-                      ? selected.filter((x) => x !== r)
-                      : [...selected, r],
-                  )
-            }
-            className={selected.includes(r) ? "chip active" : "chip"}
-          >
-            {Icon && (
-              <Icon
-                className={`chipIcon ${r === "BMI & midjemått" ? "bmiIcon" : ""}`}
-              />
-            )}
-            <span>{r}</span>
-          </button>
-        );
-      })}
+      {risks.map((r) => (
+        <button
+          key={r}
+          onClick={() =>
+            single
+              ? setSelected([r])
+              : setSelected(
+                  selected.includes(r)
+                    ? selected.filter((x) => x !== r)
+                    : [...selected, r],
+                )
+          }
+          className={selected.includes(r) ? "chip active" : "chip"}
+        >
+          <span>{r}</span>
+        </button>
+      ))}
     </div>
   );
 }
