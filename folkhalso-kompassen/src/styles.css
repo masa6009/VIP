@@ -512,6 +512,37 @@ button {
   visibility: visible;
   transform: translateY(0);
 }
+
+/* Make info tooltips near headings open to the right instead of behind the sidebar */
+.headingInfo .infoTooltip,
+.titleWithInfo .infoTooltip {
+  left: 0;
+  right: auto;
+}
+
+/* Move the little tooltip arrow to match the new left alignment */
+.headingInfo .infoTooltip::before,
+.titleWithInfo .infoTooltip::before {
+  left: 10px;
+  right: auto;
+}
+
+/* Keep cards/tooltips above surrounding layout */
+.card,
+.panel,
+.mapPanel {
+  position: relative;
+  overflow: visible;
+}
+
+.infoButton {
+  z-index: 50;
+}
+
+.infoTooltip {
+  z-index: 999;
+}
+
 .slider {
   position: relative;
   min-height: 155px;
