@@ -336,7 +336,7 @@ button {
   background: #dce7f6;
   border-color: #0050a0;
   color: #003976;
-  font-weight: 700;
+  /* font-weight: 700; */
 }
 .stageChips {
   display: flex;
@@ -356,7 +356,7 @@ button {
   background: #f3f4f5;
 }
 .stageChip.active {
-  font-weight: 700;
+  /* font-weight: 700; */
 }
 .stageChip.active.good {
   background: #dce7f6;
@@ -392,7 +392,7 @@ button {
   background: white;
   color: #003976;
   border-radius: 999px;
-  padding: 6px 10px;
+  padding: 8px 10px;
   font-size: 12px;
   font-weight: 700;
   cursor: pointer;
@@ -454,13 +454,13 @@ button {
   display: inline-grid;
   place-items: center;
   border: 1px solid #727783;
-  background: white;
   border-radius: 999px;
   width: 16px;
   height: 16px;
-  font-size: 9px;
+  font-size: 8px;
   font-weight: 700;
   color: #727783;
+  background-color: transparent;
   cursor: pointer;
   flex: 0 0 auto;
   z-index: 30;
@@ -550,9 +550,11 @@ button {
 
 .slider {
   position: relative;
-  min-height: 155px;
-  height: fit-content;
+  /* min-height: 155px; */
   overflow: visible;
+  background: #f2f4f5;
+  border: none;
+  height: 140px;
 }
 
 .sliderTrackWrap {
@@ -579,7 +581,7 @@ button {
   border-radius: 999px;
   padding: 4px 9px;
   font-size: 10px;
-  font-weight: 700;
+  /* font-weight: 700; */
   line-height: 1;
   white-space: nowrap;
   transition: left 0.15s ease;
