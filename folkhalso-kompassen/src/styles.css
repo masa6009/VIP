@@ -13,6 +13,7 @@ body {
 }
 button {
   font: inherit;
+  font-size: 14px;
 }
 .app {
   display: flex;
@@ -210,7 +211,7 @@ button {
 
 .dropdownButton {
   width: 100%;
-  min-height: 42px;
+  /* min-height: 42px */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -218,7 +219,8 @@ button {
   border: 1px solid #c2c6d3;
   background: white;
   border-radius: 5px;
-  padding: 10px 12px;
+  /* padding: 10px 12px; */
+  padding: 8px;
   color: #1a1c1c;
   cursor: pointer;
   text-align: left;
