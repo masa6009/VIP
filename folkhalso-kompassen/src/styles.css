@@ -75,10 +75,10 @@ button {
   position: absolute;
   right: 0;
   top: 0;
-  width: 8px;
+  width: 5px;
   height: 100%;
   background: #003976;
-  border-radius: 0 8px 8px 0;
+  border-radius: 0 5px 5px 0;
 }
 .main {
   flex: 1;
@@ -117,7 +117,7 @@ button {
 .mapPanel {
   background: white;
   border: 1px solid #c2c6d3;
-  border-radius: 18px;
+  border-radius: 8px;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04);
 }
 
@@ -145,7 +145,7 @@ button {
 .ghost {
   border: 1px solid #c2c6d3;
   background: white;
-  border-radius: 10px;
+  border-radius: 5px;
   padding: 10px 14px;
   cursor: pointer;
 }
@@ -212,7 +212,7 @@ button {
   gap: 10px;
   border: 1px solid #c2c6d3;
   background: white;
-  border-radius: 10px;
+  border-radius: 5px;
   padding: 10px 12px;
   color: #1a1c1c;
   cursor: pointer;
@@ -274,7 +274,7 @@ button {
   max-height: 230px;
   overflow-y: auto;
   border: 1px solid #c2c6d3;
-  border-radius: 12px;
+  border-radius: 5px;
   background: white;
   box-shadow: 0 14px 30px rgba(0, 0, 0, 0.14);
   padding: 6px;
@@ -285,7 +285,7 @@ button {
   display: block;
   border: 0;
   background: transparent;
-  border-radius: 8px;
+  border-radius: 5px;
   padding: 9px 10px;
   color: #1a1c1c;
   cursor: pointer;
@@ -476,7 +476,7 @@ button {
   width: 240px;
   padding: 10px 12px;
   border: 1px solid #c2c6d3;
-  border-radius: 12px;
+  border-radius: 5px;
   background: white;
   color: #1a1c1c;
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.14);
@@ -701,7 +701,7 @@ button {
 }
 .mapBox {
   background: #f3f3f4;
-  border-radius: 16px;
+  border-radius: 8px;
   padding: 16px;
 }
 .mapBox svg {
@@ -722,7 +722,7 @@ button {
 .stat {
   background: #dce7f6;
   color: #003976;
-  border-radius: 16px;
+  border-radius: 8px;
   padding: 12px 16px;
   text-align: right;
 }
@@ -746,7 +746,7 @@ button {
   gap: 10px;
   border: 0;
   background: transparent;
-  border-radius: 10px;
+  border-radius: 3px;
   padding: 8px;
   cursor: pointer;
   text-align: left;
@@ -762,14 +762,14 @@ button {
 .barRow i {
   height: 15px;
   background: #e2e2e2;
-  border-radius: 999px;
+  border-radius: 3px;
   overflow: hidden;
 }
 .barRow i b {
   display: block;
   height: 100%;
   background: #80a7d0;
-  border-radius: 999px;
+  border-radius: 3px;
 }
 .barRow em {
   font-style: normal;
