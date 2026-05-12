@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;700&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0,0&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&family=Fjalla+One&family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Lora:ital,wght@0,400..700;1,400..700&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100..900;1,100..900&family=Varela+Round&display=swap');
 
 * {
   box-sizing: border-box;
@@ -7,7 +8,8 @@ body {
   margin: 0;
   background: #f9f9f9;
   color: #1a1c1c;
-  font-family: "Public Sans", system-ui, sans-serif;
+  font-family: "Google Sans", sans-serif;
+  font-optical-sizing: auto;
 }
 button {
   font: inherit;
@@ -146,11 +148,14 @@ button {
   border: 1px solid #c2c6d3;
   background: white;
   border-radius: 5px;
-  padding: 10px 14px;
+  padding: 5px 14px;
   cursor: pointer;
+  transition: 0.2s; 
+  border-color: #0050a0;
+  color: #0050a0
 }
 .ghost:hover {
-  border-color: #0050a0;
+  background: #DCE7F6
 }
 .simGrid {
   display: grid;
@@ -164,7 +169,7 @@ button {
 .card h3,
 .bars h2 {
   margin: 0 0 14px;
-  font-size: 18px;
+  font-size: 14px;
 }
 
 .headingInfo {
@@ -451,9 +456,9 @@ button {
   border: 1px solid #727783;
   background: white;
   border-radius: 999px;
-  width: 22px;
-  height: 22px;
-  font-size: 12px;
+  width: 16px;
+  height: 16px;
+  font-size: 9px;
   font-weight: 700;
   color: #727783;
   cursor: pointer;
@@ -546,6 +551,7 @@ button {
 .slider {
   position: relative;
   min-height: 155px;
+  height: fit-content;
   overflow: visible;
 }
 
@@ -558,6 +564,7 @@ button {
 
 .slider input {
   width: 100%;
+  height: 8px;
   accent-color: #0050a0;
   margin: 0;
   display: block;
@@ -571,7 +578,7 @@ button {
   color: #424751;
   border-radius: 999px;
   padding: 4px 9px;
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 700;
   line-height: 1;
   white-space: nowrap;

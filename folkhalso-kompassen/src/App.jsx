@@ -160,7 +160,10 @@ function Dropdown({ label, value, options, onChange, small = false }) {
 
   if (!options) {
     return (
-      <button type="button" className={small ? "dropdownButton small" : "dropdownButton"}>
+      <button
+        type="button"
+        className={small ? "dropdownButton small" : "dropdownButton"}
+      >
         <span>{label}</span>
         <FiChevronDown className="dropdownArrow" />
       </button>
@@ -177,7 +180,9 @@ function Dropdown({ label, value, options, onChange, small = false }) {
         <span className={value ? "dropdownValue" : "dropdownPlaceholder"}>
           {selectedLabel}
         </span>
-        <FiChevronDown className={open ? "dropdownArrow open" : "dropdownArrow"} />
+        <FiChevronDown
+          className={open ? "dropdownArrow open" : "dropdownArrow"}
+        />
       </button>
 
       {open && (
@@ -203,11 +208,11 @@ function Dropdown({ label, value, options, onChange, small = false }) {
   );
 }
 const impactStages = [
-  { value: -2, label: "Påtaglig försämring", tone: "bad" },
-  { value: -1, label: "Mild försämring", tone: "bad" },
-  { value: 0, label: "Nuläge", tone: "neutral" },
-  { value: 1, label: "Mild förbättring", tone: "good" },
-  { value: 2, label: "Påtaglig förbättring", tone: "good" },
+  { value: -2, label: "påtaglig försämring", tone: "bad" },
+  { value: -1, label: "mild försämring", tone: "bad" },
+  { value: 0, label: "nuläge", tone: "neutral" },
+  { value: 1, label: "mild förbättring", tone: "good" },
+  { value: 2, label: "påtaglig förbättring", tone: "good" },
 ];
 
 function RiskChips({ selected, setSelected, single = false }) {
@@ -348,20 +353,22 @@ function FiltersPanel({
         />
       </div>
       <div className="riskFilterHeader">
-  <p>Välj riskfaktorer att simulera</p>
+        <p>Välj riskfaktorer att simulera</p>
 
-  <button
-    type="button"
-    className="selectAllButton"
-    onClick={() =>
-      selected.length === risks.length ? setSelected([]) : setSelected(risks)
-    }
-  >
-    {selected.length === risks.length ? "Avmarkera alla" : "Välj alla"}
-  </button>
-</div>
+        <button
+          type="button"
+          className="selectAllButton"
+          onClick={() =>
+            selected.length === risks.length
+              ? setSelected([])
+              : setSelected(risks)
+          }
+        >
+          {selected.length === risks.length ? "Avmarkera alla" : "Välj alla"}
+        </button>
+      </div>
 
-<RiskChips selected={selected} setSelected={setSelected} />
+      <RiskChips selected={selected} setSelected={setSelected} />
     </div>
   );
 }
@@ -395,8 +402,7 @@ function Sidebar({ page, setPage }) {
 function InfoButton({ text, label = "Information" }) {
   return (
     <button type="button" className="infoButton" aria-label={label}>
-      i
-      <span className="infoTooltip">{text}</span>
+      i<span className="infoTooltip">{text}</span>
     </button>
   );
 }
@@ -406,12 +412,12 @@ function SliderCard({ risk, value, onChange }) {
 
   const label =
     value === 0
-      ? "Nuläge"
+      ? "nuläge"
       : value === -1
-        ? "Mild"
+        ? "mild"
         : value === 1
-          ? "Mild"
-          : "Påtaglig";
+          ? "mild"
+          : "påtaglig";
 
   const bubbleClass =
     value < 0 ? "bubble bad" : value > 0 ? "bubble good" : "bubble";
@@ -478,13 +484,13 @@ function Spider({ selected, values, municipality1, municipality2 }) {
       .join(" ");
   return (
     <div className="card">
-        <div className="headingInfo">
-          <h3>Riskprofil</h3>
-          <InfoButton
-            label="Information om riskprofil"
-            text="Riskprofilen visar de valda riskfaktorerna i ett radardiagram."
-          />
-        </div>
+      <div className="headingInfo">
+        <h3>Riskprofil</h3>
+        <InfoButton
+          label="Information om riskprofil"
+          text="Riskprofilen visar de valda riskfaktorerna i ett radardiagram."
+        />
+      </div>
       <svg viewBox="0 0 360 360" className="chartSvg">
         {[0.25, 0.5, 0.75, 1].map((x) => (
           <circle key={x} cx={c} cy={c} r={r * x} fill="none" stroke={C.line} />
@@ -658,7 +664,7 @@ function Prognos() {
     <main className="main">
       <section className="panel">
         <div className="top">
-          <h1>Simuleringspanel</h1>
+          <h3>Simuleringspanel</h3>
           <button
             onClick={() =>
               setValues(Object.fromEntries(risks.map((r) => [r, 0])))
@@ -760,13 +766,13 @@ function Karta() {
         <div className="mapLeft">
           <div className="top">
             <div>
-                <div className="titleWithInfo">
-              <h1>Västerbotten – {factor}</h1>
-              <InfoButton
-                label="Information om kartan"
-                text="Kartan visar Västerbottens kommuner och färglägger dem efter det simulerade värdet för vald riskfaktor. Hovra eller klicka på en kommun för att se detaljer."
-              />
-            </div>
+              <div className="titleWithInfo">
+                <h2>Västerbotten – {factor}</h2>
+                <InfoButton
+                  label="Information om kartan"
+                  text="Kartan visar Västerbottens kommuner och färglägger dem efter det simulerade värdet för vald riskfaktor. Hovra eller klicka på en kommun för att se detaljer."
+                />
+              </div>
               <p>Hovra över kartan eller staplarna för att jämföra kommuner.</p>
             </div>
             <div className="stat">
