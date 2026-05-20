@@ -845,12 +845,12 @@ function Karta() {
               </div>
               <p>Hovra över kartan eller staplarna för att jämföra kommuner.</p>
             </div>
+          </div>
+          <div className="mapBox">
             <div className="stat">
               <b>{hovered}</b>
               <span>{active.value.toFixed(1)}%</span>
             </div>
-          </div>
-          <div className="mapBox">
             <svg viewBox="0 0 1228 1169" preserveAspectRatio="xMidYMid meet">
               {paths.map((p) => (
                 <path
