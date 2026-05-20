@@ -147,15 +147,15 @@ button {
 }
 .municipalityToggle {
   display: inline-flex;
-  border: 1px solid #0050a0;
   border-radius: 10px;
-  background: white;
+  background: #f2f4f5;
   overflow: hidden;
   min-height: 34px;
+  border: 1px solid #c2c6d3;
 }
 .municipalityToggle button {
-  border: none;
-  background: transparent;
+  border: 1px transparent solid;
+  background: #f2f4f5;
   color: gray;
   padding: 5px 14px;
   font-size: 14px;
@@ -170,8 +170,9 @@ button {
 }
 
 .municipalityToggle button.active {
-  background: #dce7f6;
+  background: white;
   color: #003976;
+  border: 1px solid #0050a0;
 }
 .municipalityToggle button:disabled {
   cursor: not-allowed;
