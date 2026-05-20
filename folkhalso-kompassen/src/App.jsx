@@ -264,7 +264,7 @@ function MapFilter({ selected, setSelected, mapImpact, setMapImpact }) {
   return (
     <section className="card mapFilter">
       <div className="headingInfo">
-        <h3>Filter</h3>
+        <p>Filter</p>
         <InfoButton
           label="Information om kartfilter"
           text="Här väljer du ålder, kön, riskfaktor och simuleringsnivå för kartvyn. Valen påverkar färger och värden i kartan."
@@ -407,6 +407,35 @@ function InfoButton({ text, label = "Information" }) {
   );
 }
 
+function MunicipalityToggle({
+  municipality1,
+  municipality2,
+  activeMunicipality,
+  setActiveMunicipality,
+}) {
+  const disabled = !municipality1 || !municipality2;
+  return (
+    <div className={`municipalityToggle${disabled ? " disabled" : ""}`}>
+      <button
+        type="button"
+        className={activeMunicipality === "municipality1" ? "active" : ""}
+        disabled={disabled}
+        onClick={() => setActiveMunicipality("municipality1")}
+      >
+        {municipality1 || "Kommun 1"}
+      </button>
+      <button
+        type="button"
+        className={activeMunicipality === "municipality2" ? "active" : ""}
+        disabled={disabled}
+        onClick={() => setActiveMunicipality("municipality2")}
+      >
+        {municipality2 || "Kommun 2"}
+      </button>
+    </div>
+  );
+}
+
 function SliderCard({ risk, value, onChange }) {
   const Icon = riskIcons[risk];
 
@@ -467,14 +496,16 @@ function SliderCard({ risk, value, onChange }) {
     </div>
   );
 }
-function Spider({ selected, values, municipality1, municipality2 }) {
+function Spider({ selected, valuesByMunicipality, municipality1, municipality2 }) {
   const size = 360,
     c = 180,
     r = 125,
     axes = selected.length ? selected : risks;
   const municipalityAdjustment1 = (muniBase[municipality1] || 3) * 3;
   const municipalityAdjustment2 = (muniBase[municipality2] || 3) * 3;
-  const poly = (off = 0) =>
+  const values1 = valuesByMunicipality.municipality1;
+  const values2 = valuesByMunicipality.municipality2;
+  const poly = (values, off = 0) =>
     axes
       .map((a, i) => {
         const ang = -Math.PI / 2 + (i * 2 * Math.PI) / axes.length;
@@ -518,14 +549,14 @@ function Spider({ selected, values, municipality1, municipality2 }) {
           );
         })}
         <polygon
-          points={poly(municipalityAdjustment1)}
+          points={poly(values1, municipalityAdjustment1)}
           fill={C.lightBlue}
           stroke={C.blue}
           strokeWidth="2"
           opacity=".75"
         />
         <polygon
-          points={poly(municipalityAdjustment2)}
+          points={poly(values2, municipalityAdjustment2)}
           fill={C.lightOrange}
           stroke={C.orange}
           strokeDasharray="5 4"
@@ -554,25 +585,29 @@ function Spider({ selected, values, municipality1, municipality2 }) {
 }
 function Lives({
   selected,
-  values,
+  valuesByMunicipality,
   year,
   setYear,
   municipality1,
   municipality2,
 }) {
   const yrs = [2026, 2030, 2035, 2040, 2045, 2050, 2055, 2060];
-  const impact = selected.reduce(
-    (s, r) => s + Math.max(0, values[r]) * 12 - Math.min(0, values[r]) * 5,
+  const impact1 = selected.reduce(
+    (s, r) => s + Math.max(0, valuesByMunicipality.municipality1[r]) * 12 - Math.min(0, valuesByMunicipality.municipality1[r]) * 5,
+    0,
+  );
+  const impact2 = selected.reduce(
+    (s, r) => s + Math.max(0, valuesByMunicipality.municipality2[r]) * 12 - Math.min(0, valuesByMunicipality.municipality2[r]) * 5,
     0,
   );
   const base1 = muniBase[municipality1] || 3;
   const base2 = muniBase[municipality2] || 3;
   const pts = yrs.map((y, i) => ({
     y,
-    a: Math.round(i * 20 + (impact * i) / 3 + base1 * 5),
-    b: Math.round(i * 12 + (impact * i) / 5 + base2 * 3),
+    a: Math.round(i * 20 + (impact1 * i) / 3 + base1 * 5),
+    b: Math.round(i * 12 + (impact2 * i) / 5 + base2 * 3),
   }));
-  const max = Math.max(120, ...pts.map((p) => p.a));
+  const max = Math.max(120, ...pts.map((p) => Math.max(p.a, p.b)));
   const x = (i) => 38 + i * 70,
     y = (v) => 300 - (v / max) * 240,
     line = (k) => pts.map((p, i) => `${x(i)},${y(p[k])}`).join(" ");
@@ -649,30 +684,56 @@ function Start() {
     </main>
   );
 }
+function emptyRiskValues() {
+  return Object.fromEntries(risks.map((r) => [r, 0]));
+}
+
 function Prognos() {
   const [selected, setSelected] = useState(risks);
-  const [values, setValues] = useState(
-    Object.fromEntries(risks.map((r) => [r, 0])),
+  const [valuesByMunicipality, setValuesByMunicipality] = useState({
+    municipality1: emptyRiskValues(),
+    municipality2: emptyRiskValues(),
+  });
+  const [activeMunicipality, setActiveMunicipality] = useState(
+    "municipality1",
   );
+  const currentValues = valuesByMunicipality[activeMunicipality];
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
   const [municipality1, setMunicipality1] = useState("");
   const [municipality2, setMunicipality2] = useState("");
   const [year, setYear] = useState(2050);
-  const update = (r, v) => setValues({ ...values, [r]: v });
+  const update = (r, v) =>
+    setValuesByMunicipality((prev) => ({
+      ...prev,
+      [activeMunicipality]: {
+        ...prev[activeMunicipality],
+        [r]: v,
+      },
+    }));
+
+  const resetActiveMunicipality = () =>
+    setValuesByMunicipality((prev) => ({
+      ...prev,
+      [activeMunicipality]: emptyRiskValues(),
+    }));
+
   return (
     <main className="main">
       <section className="panel">
         <div className="top">
           <h3>Simuleringspanel</h3>
-          <button
-            onClick={() =>
-              setValues(Object.fromEntries(risks.map((r) => [r, 0])))
-            }
-            className="ghost"
-          >
-            ↺ Återställ
-          </button>
+          <div className="panelActions">
+            <MunicipalityToggle
+              municipality1={municipality1}
+              municipality2={municipality2}
+              activeMunicipality={activeMunicipality}
+              setActiveMunicipality={setActiveMunicipality}
+            />
+            <button onClick={resetActiveMunicipality} className="ghost">
+              ↺ Återställ
+            </button>
+          </div>
         </div>
         <div className="simGrid">
           <FiltersPanel
@@ -692,7 +753,7 @@ function Prognos() {
               <SliderCard
                 key={r}
                 risk={r}
-                value={values[r]}
+                value={currentValues[r]}
                 onChange={update}
               />
             ))}
@@ -702,13 +763,13 @@ function Prognos() {
       <section className="bottom">
         <Spider
           selected={selected}
-          values={values}
+          valuesByMunicipality={valuesByMunicipality}
           municipality1={municipality1}
           municipality2={municipality2}
         />
         <Lives
           selected={selected}
-          values={values}
+          valuesByMunicipality={valuesByMunicipality}
           year={year}
           setYear={setYear}
           municipality1={municipality1}

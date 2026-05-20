@@ -136,6 +136,40 @@ button {
   gap: 16px;
   margin-bottom: 16px;
 }
+.panelActions {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.municipalityToggle {
+  display: inline-flex;
+  border: 1px solid #0050a0;
+  border-radius: 999px;
+  background: white;
+  overflow: hidden;
+  min-height: 38px;
+}
+.municipalityToggle button {
+  border: none;
+  background: transparent;
+  color: #0050a0;
+  padding: 10px 14px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.municipalityToggle button.active {
+  background: #dce7f6;
+  color: #003976;
+}
+.municipalityToggle button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+.municipalityToggle.disabled {
+  border-color: #c2c6d3;
+}
 .top h1 {
   font-weight: 300;
   margin: 0;
@@ -167,11 +201,12 @@ button {
   padding: 20px;
 }
 .filter h3,
-.card h3,
+.card h2
 .bars h2 {
   margin: 0 0 14px;
   font-size: 14px;
 }
+
 
 .headingInfo {
   display: inline-flex;
@@ -179,6 +214,11 @@ button {
   gap: 8px;
   width: fit-content;
   margin-bottom: 16px;
+}
+
+.headingInfo p {
+  font-size: 14px;
+  font-weight: 700;;
 }
 
 .headingInfo h1,
@@ -420,6 +460,9 @@ button {
 
 .sliderCardTitle h3 {
   margin: 0;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.2;
 }
 
 .sliderCardIcon {
@@ -812,6 +855,17 @@ button {
   .bottom,
   .mapPanel {
     grid-template-columns: 1fr;
+  }
+  .panelActions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .municipalityToggle {
+    width: 100%;
+  }
+  .municipalityToggle button {
+    width: 100%;
+    flex: 1;
   }
   .sliders {
     grid-template-columns: 1fr 1fr;
