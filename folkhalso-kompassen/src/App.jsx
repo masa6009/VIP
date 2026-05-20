@@ -496,7 +496,12 @@ function SliderCard({ risk, value, onChange }) {
     </div>
   );
 }
-function Spider({ selected, valuesByMunicipality, municipality1, municipality2 }) {
+function Spider({
+  selected,
+  valuesByMunicipality,
+  municipality1,
+  municipality2,
+}) {
   const size = 360,
     c = 180,
     r = 125,
@@ -593,11 +598,17 @@ function Lives({
 }) {
   const yrs = [2026, 2030, 2035, 2040, 2045, 2050, 2055, 2060];
   const impact1 = selected.reduce(
-    (s, r) => s + Math.max(0, valuesByMunicipality.municipality1[r]) * 12 - Math.min(0, valuesByMunicipality.municipality1[r]) * 5,
+    (s, r) =>
+      s +
+      Math.max(0, valuesByMunicipality.municipality1[r]) * 12 -
+      Math.min(0, valuesByMunicipality.municipality1[r]) * 5,
     0,
   );
   const impact2 = selected.reduce(
-    (s, r) => s + Math.max(0, valuesByMunicipality.municipality2[r]) * 12 - Math.min(0, valuesByMunicipality.municipality2[r]) * 5,
+    (s, r) =>
+      s +
+      Math.max(0, valuesByMunicipality.municipality2[r]) * 12 -
+      Math.min(0, valuesByMunicipality.municipality2[r]) * 5,
     0,
   );
   const base1 = muniBase[municipality1] || 3;
@@ -694,9 +705,7 @@ function Prognos() {
     municipality1: emptyRiskValues(),
     municipality2: emptyRiskValues(),
   });
-  const [activeMunicipality, setActiveMunicipality] = useState(
-    "municipality1",
-  );
+  const [activeMunicipality, setActiveMunicipality] = useState("municipality1");
   const currentValues = valuesByMunicipality[activeMunicipality];
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
