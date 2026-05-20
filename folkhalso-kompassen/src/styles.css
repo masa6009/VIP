@@ -151,7 +151,7 @@ button {
   background: #f2f4f5;
   overflow: hidden;
   min-height: 34px;
-  border: 1px solid #c2c6d3;
+  /* border: 1px solid #c2c6d3; */
 }
 .municipalityToggle button {
   border: 1px transparent solid;
@@ -176,7 +176,7 @@ button {
 }
 .municipalityToggle button:disabled {
   cursor: not-allowed;
-  opacity: 0.55;
+  /* opacity: 0.55; */
 }
 .municipalityToggle.disabled {
   border-color: #c2c6d3;
@@ -766,7 +766,6 @@ button {
 
 .mapFilterField span {
   display: block;
-  margin-bottom: 4px;
   min-width: 50px;
 }
 
