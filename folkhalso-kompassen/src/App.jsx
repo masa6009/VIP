@@ -273,26 +273,32 @@ function MapFilter({ selected, setSelected, mapImpact, setMapImpact }) {
 
       <div className="mapFilterLayout">
         <div className="mapFilterDropdowns">
-          <Dropdown
-            label="Ålder"
-            value={mapAge}
-            options={ageOptions}
-            onChange={setMapAge}
-          />
-          <Dropdown
-            label="Kön"
-            value={mapGender}
-            options={genderOptions}
-            onChange={setMapGender}
-          />
+          <div className="mapFilterField">
+            <span className="label">ÅLDER</span>
+            <Dropdown
+              label="Alla"
+              value={mapAge}
+              options={ageOptions}
+              onChange={setMapAge}
+            />
+          </div>
+          <div className="mapFilterField">
+            <span className="label">KÖN</span>
+            <Dropdown
+              label="Alla"
+              value={mapGender}
+              options={genderOptions}
+              onChange={setMapGender}
+            />
+          </div>
         </div>
 
         <div className="mapFilterControls">
-          <p>Välj en riskfaktor</p>
+          <p className="label">Välj en riskfaktor</p>
           <RiskChips selected={selected} setSelected={setSelected} single />
 
           <div className="mapStageSection">
-            <p>Välj simuleringsnivå</p>
+            <p className="label">Välj simuleringsnivå</p>
             <ImpactStageChips value={mapImpact} onChange={setMapImpact} />
           </div>
         </div>
@@ -353,7 +359,7 @@ function FiltersPanel({
         />
       </div>
       <div className="riskFilterHeader">
-        <p>Välj riskfaktorer att simulera</p>
+        <p className="label">Välj riskfaktorer att simulera</p>
 
         <button
           type="button"
@@ -869,15 +875,24 @@ function Karta() {
             <div className="mapLegend">
               <div className="mapLegendTitle">Värden</div>
               <div className="mapLegendRow">
-                <span className="mapLegendSwatch" style={{ background: C.midBlue }} />
+                <span
+                  className="mapLegendSwatch"
+                  style={{ background: C.midBlue }}
+                />
                 <span>4.6–6%</span>
               </div>
               <div className="mapLegendRow">
-                <span className="mapLegendSwatch" style={{ background: C.lightBlue }} />
+                <span
+                  className="mapLegendSwatch"
+                  style={{ background: C.lightBlue }}
+                />
                 <span>3.2–4.6%</span>
               </div>
               <div className="mapLegendRow">
-                <span className="mapLegendSwatch" style={{ background: C.grey }} />
+                <span
+                  className="mapLegendSwatch"
+                  style={{ background: C.grey }}
+                />
                 <span>0–3.2%</span>
               </div>
             </div>
