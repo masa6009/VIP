@@ -843,7 +843,9 @@ function Karta() {
                   text="Kartan visar Västerbottens kommuner och färglägger dem efter det simulerade värdet för vald riskfaktor. Hovra eller klicka på en kommun för att se detaljer."
                 />
               </div>
-              <p>Hovra över kartan eller staplarna för att jämföra kommuner.</p>
+              <p className="mapInfo">
+                Hovra över kartan eller staplarna för att jämföra kommuner.
+              </p>
             </div>
           </div>
           <div className="mapBox">
@@ -863,52 +865,22 @@ function Karta() {
                   onClick={() => setHovered(p.name)}
                 />
               ))}
-              <g transform="translate(35 1030)">
-                <rect
-                  width="180"
-                  height="112"
-                  rx="10"
-                  fill="white"
-                  stroke={C.line}
-                />
-                <text x="20" y="30" fontSize="16" fontWeight="700">
-                  Värden
-                </text>
-                <rect
-                  x="20"
-                  y="48"
-                  width="22"
-                  height="14"
-                  rx="3"
-                  fill={C.midBlue}
-                />
-                <text x="52" y="60" fontSize="13">
-                  4.6–6%
-                </text>
-                <rect
-                  x="20"
-                  y="70"
-                  width="22"
-                  height="14"
-                  rx="3"
-                  fill={C.lightBlue}
-                />
-                <text x="52" y="82" fontSize="13">
-                  3.2–4.6%
-                </text>
-                <rect
-                  x="20"
-                  y="92"
-                  width="22"
-                  height="14"
-                  rx="3"
-                  fill={C.grey}
-                />
-                <text x="52" y="104" fontSize="13">
-                  0–3.2%
-                </text>
-              </g>
             </svg>
+            <div className="mapLegend">
+              <div className="mapLegendTitle">Värden</div>
+              <div className="mapLegendRow">
+                <span className="mapLegendSwatch" style={{ background: C.midBlue }} />
+                <span>4.6–6%</span>
+              </div>
+              <div className="mapLegendRow">
+                <span className="mapLegendSwatch" style={{ background: C.lightBlue }} />
+                <span>3.2–4.6%</span>
+              </div>
+              <div className="mapLegendRow">
+                <span className="mapLegendSwatch" style={{ background: C.grey }} />
+                <span>0–3.2%</span>
+              </div>
+            </div>
           </div>
         </div>
         <div className="bars">

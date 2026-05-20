@@ -127,7 +127,7 @@ button {
 .panel {
   max-width: 1320px;
   margin: auto;
-  padding: 24px;
+  padding: 0 24px 24px;
 }
 .panel > .top {
   display: grid;
@@ -136,6 +136,7 @@ button {
   align-items: center;
   margin-bottom: 16px;
 }
+
 .panelActions {
   display: flex;
   align-items: center;
@@ -155,12 +156,19 @@ button {
 .municipalityToggle button {
   border: none;
   background: transparent;
-  color: #0050a0;
+  color: gray;
   padding: 5px 14px;
   font-size: 14px;
   cursor: pointer;
   transition: background 0.15s ease, color 0.15s ease;
+  border-radius: 10px;
+  transition: 0.15s ease-in;
 }
+
+.municipalityToggle button:hover{
+  color: #003976;
+}
+
 .municipalityToggle button.active {
   background: #dce7f6;
   color: #003976;
@@ -208,7 +216,6 @@ button {
   margin: 0 0 14px;
   font-size: 14px;
 }
-
 
 .headingInfo {
   display: inline-flex;
@@ -438,6 +445,7 @@ button {
   font-weight: 700;
   cursor: pointer;
   white-space: nowrap;
+  margin: 16px 0 0;
 }
 
 .selectAllButton:hover {
@@ -574,6 +582,15 @@ button {
 .titleWithInfo .infoTooltip::before {
   left: 10px;
   right: auto;
+}
+
+.mapinfo{
+  max-width: 300px;
+}
+
+.mapInfo{
+  font-size: 14px;
+  padding: 10px 0;
 }
 
 /* Keep cards/tooltips above surrounding layout */
@@ -747,9 +764,10 @@ button {
 .mapPanel {
   max-width: 1320px;
   margin: auto;
-  padding: 24px;
+  padding: 12px 24px 24px;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 360px;
+  /* grid-template-columns: minmax(0, 1fr) 360px; */
+  grid-template-columns: minmax(0, 1fr) 450px;
   gap: 24px;
 }
 .mapBox {
@@ -757,11 +775,47 @@ button {
   background: #f3f3f4;
   border-radius: 8px;
   padding: 16px;
+  width: 100%;
 }
 .mapBox svg {
   display: block;
   width: 100%;
-  max-height: 670px;
+  max-height: 470px;
+}
+.mapLegend {
+  position: absolute;
+  left: 26px;
+  bottom: 16px;
+  background: white;
+  border: 1px solid #c2c6d3;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+  min-width: 100px;
+}
+.mapLegendTitle {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.mapLegendRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.mapLegendRow:last-child {
+  margin-bottom: 0;
+}
+.mapLegendSwatch {
+  width: 22px;
+  height: 14px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+.mapLegend span {
+  font-size: 14px;
+  color: #1a1c1c;
 }
 .stat {
   position: absolute;
@@ -799,7 +853,7 @@ button {
   font-weight: 300;
 }
 .bars {
-  padding-top: 4px;
+  padding-top: 26px;
 }
 .barRow {
   width: 100%;
