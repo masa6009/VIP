@@ -333,30 +333,41 @@ function FiltersPanel({
         />
       </div>
       <div className="ddgrid">
-        <Dropdown
-          label="Ålder"
-          value={age}
-          options={ageOptions}
-          onChange={setAge}
-        />
-        <Dropdown
-          label="Kön"
-          value={gender}
-          options={genderOptions}
-          onChange={setGender}
-        />
-        <Dropdown
-          label="Kommun 1"
-          value={municipality1}
-          options={municipalities}
-          onChange={setMunicipality1}
-        />
-        <Dropdown
-          label="Kommun 2"
-          value={municipality2}
-          options={municipality2Options}
-          onChange={setMunicipality2}
-        />
+        <div>
+          <span className="label">ÅLDER</span>
+          <Dropdown
+            label="Alla"
+            value={age}
+            options={ageOptions}
+            onChange={setAge}
+          />
+        </div>
+        <div>
+          <span className="label">KÖN</span>
+          <Dropdown
+            label="Alla"
+            value={gender}
+            options={genderOptions}
+            onChange={setGender}
+          />
+        </div>
+        <div className="dropdownKommun">
+          <span className="label">JÄMFÖR KOMMUNER</span>
+          <div>
+            <Dropdown
+              label="Kommun 1"
+              value={municipality1}
+              options={municipalities}
+              onChange={setMunicipality1}
+            />
+            <Dropdown
+              label="Kommun 2"
+              value={municipality2}
+              options={municipality2Options}
+              onChange={setMunicipality2}
+            />
+          </div>
+        </div>
       </div>
       <div className="riskFilterHeader">
         <p className="label">Välj riskfaktorer att simulera</p>

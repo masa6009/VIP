@@ -162,7 +162,7 @@ button {
   cursor: pointer;
   transition: background 0.15s ease, color 0.15s ease;
   border-radius: 10px;
-  transition: 0.15s ease-in;
+  transition: 0.1s ease-in;
 }
 
 .municipalityToggle button:hover{
@@ -254,6 +254,16 @@ button {
 .dropdown {
   position: relative;
   max-width: 100%;
+}
+
+/* Make the municipality selector span the full width and place its two dropdowns in a row */
+.dropdownKommun {
+  grid-column: 1 / -1;
+}
+.dropdownKommun > div {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
 }
 
 .dropdown.small {
@@ -765,8 +775,9 @@ button {
   color: #0050a0;
   font-size: 12px;
   text-decoration: uppercase;
+  margin-bottom: 5px;
+  display: block;
 }
-
 
 .mapFilterControls p {
   margin: 0 0 10px;
