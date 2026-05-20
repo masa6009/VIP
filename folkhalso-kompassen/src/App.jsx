@@ -453,6 +453,24 @@ function MunicipalityToggle({
   );
 }
 
+function getSliderTrackBackground(value) {
+  const percent = ((value + 2) / 4) * 100;
+
+  if (value === 0) {
+    return { background: "#DCE7F6" };
+  }
+
+  if (value > 0) {
+    return {
+      background: `linear-gradient(to right, #DCE7F6 0%, #DCE7F6 50%, #003976 50%, #003976 ${percent}%, #DCE7F6 ${percent}%, #DCE7F6 100%)`,
+    };
+  }
+
+  return {
+    background: `linear-gradient(to right, #DCE7F6 0%, #DCE7F6 ${percent}%, #003976 ${percent}%, #003976 50%, #DCE7F6 50%, #DCE7F6 100%)`,
+  };
+}
+
 function SliderCard({ risk, value, onChange }) {
   const Icon = riskIcons[risk];
 
@@ -503,6 +521,7 @@ function SliderCard({ risk, value, onChange }) {
           step="1"
           value={value}
           onChange={(e) => onChange(risk, Number(e.target.value))}
+          style={getSliderTrackBackground(value)}
         />
 
         <div className="rangeLabels">
