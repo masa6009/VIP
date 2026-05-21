@@ -747,8 +747,7 @@ function Start() {
         <p className="eyebrow">Demovy</p>
         <h1>Folkhälsokompassen</h1>
         <p>
-          Ett prototypverktyg för att visa hur ändringar i riskfaktorer kan
-          påverka framtida kardiovaskulär sjukdomsrisk i Västerbottens kommuner.
+          Ett prototypverktyg för simulering av risk för kardiovaskulära sjukdomar inom Västerbotten.
         </p>
       </div>
     </main>
