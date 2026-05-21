@@ -81,8 +81,8 @@ const municipalities = [
   "Vännäs",
   "Åsele",
 ];
-const ageOptions = ["40", "50", "60"];
-const genderOptions = ["Man", "Kvinna"];
+const ageOptions = ["Alla", "40", "50", "60"];
+const genderOptions = ["Alla", "Man", "Kvinna"];
 const base = Object.fromEntries(risks.map((r, i) => [r, 52 + ((i * 4) % 28)]));
 const muniBase = {
   Bjurholm: 6,
@@ -344,10 +344,7 @@ function FiltersPanel({
   selected,
   setSelected,
 }) {
-  const municipality2Options =
-    municipality1 && municipality1 !== ""
-      ? municipalities.filter((m) => m !== municipality1)
-      : municipalities;
+  const municipality2Options = municipalities;
 
   return (
     <div className="card filter">
