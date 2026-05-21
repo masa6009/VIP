@@ -1,4 +1,10 @@
-import React, { useMemo, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { FiChevronDown } from "react-icons/fi";
 import {
   FaTint,
@@ -28,6 +34,11 @@ const C = {
   lightOrange: "#FCDED6",
   grey: "#e8e8e8",
 };
+
+const DropdownContext = createContext({
+  openDropdownId: null,
+  setOpenDropdownId: () => {},
+});
 
 const risks = [
   "Blodsocker",
@@ -156,7 +167,15 @@ const paths = [
 
 function Dropdown({ label, value, options, onChange, small = false }) {
   const [open, setOpen] = useState(false);
+  const { openDropdownId, setOpenDropdownId } = useContext(DropdownContext);
+  const id = useMemo(() => Symbol(label), [label]);
   const selectedLabel = value || label;
+
+  useEffect(() => {
+    if (open && openDropdownId !== id) {
+      setOpen(false);
+    }
+  }, [id, open, openDropdownId]);
 
   if (!options) {
     return (
@@ -175,7 +194,11 @@ function Dropdown({ label, value, options, onChange, small = false }) {
       <button
         type="button"
         className="dropdownButton"
-        onClick={() => setOpen((prev) => !prev)}
+        onClick={() => {
+          const nextOpen = !open;
+          setOpen(nextOpen);
+          setOpenDropdownId(nextOpen ? id : null);
+        }}
       >
         <span className={value ? "dropdownValue" : "dropdownPlaceholder"}>
           {selectedLabel}
@@ -197,6 +220,9 @@ function Dropdown({ label, value, options, onChange, small = false }) {
               onClick={() => {
                 onChange(option);
                 setOpen(false);
+                if (openDropdownId === id) {
+                  setOpenDropdownId(null);
+                }
               }}
             >
               {option}
@@ -957,16 +983,20 @@ function Karta() {
 }
 export default function App() {
   const [page, setPage] = useState("prognos");
+  const [openDropdownId, setOpenDropdownId] = useState(null);
+
   return (
-    <div className="app">
-      <Sidebar page={page} setPage={setPage} />
-      {page === "start" ? (
-        <Start />
-      ) : page === "prognos" ? (
-        <Prognos />
-      ) : (
-        <Karta />
-      )}
-    </div>
+    <DropdownContext.Provider value={{ openDropdownId, setOpenDropdownId }}>
+      <div className="app">
+        <Sidebar page={page} setPage={setPage} />
+        {page === "start" ? (
+          <Start />
+        ) : page === "prognos" ? (
+          <Prognos />
+        ) : (
+          <Karta />
+        )}
+      </div>
+    </DropdownContext.Provider>
   );
 }
