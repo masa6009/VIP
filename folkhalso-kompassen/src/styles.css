@@ -212,7 +212,7 @@ button {
   padding: 20px;
 }
 .filter h3,
-.card h2
+.card h2,
 .bars h2 {
   margin: 0 0 14px;
   font-size: 14px;
@@ -223,7 +223,7 @@ button {
   align-items: center;
   gap: 8px;
   width: fit-content;
-  margin-bottom: 0px;
+  margin-bottom: 0 0 16px;
 }
 
 .headingInfo p {
@@ -1010,4 +1010,23 @@ button {
   .hero h1 {
     font-size: 34px;
   }
+}
+
+/* Fix Kommun heading + info button alignment */
+.bars > .headingInfo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+
+.bars > .headingInfo h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.bars > .headingInfo .infoButton {
+  margin-top: 4px;
 }
